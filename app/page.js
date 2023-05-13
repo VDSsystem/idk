@@ -172,11 +172,11 @@ function RootPage() {
       body: data
     }).then(r => r.json());
     imageURLRef.current = response.url;
-    console.log(imageUrl); // log the URL to the console
+    console.log(imageURLRef.current); // log the URL to the console
   } catch (error) {
     console.error(error);
   }error(error);
-  
+
   const url = imageURLRef.current
   const response2 = await fetch("https://vadss.vercel.app/api/output", {
     method: 'POST',
