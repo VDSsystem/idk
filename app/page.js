@@ -137,14 +137,22 @@ function RootPage() {
       c.height = im.width;
       const ctx2 = c.getContext('2d');
       ctx2.drawImage(im, 0, 0, c.width, c.height);
-      dataURLRef.current = c.toDataURL('image/jpeg', 0.95);
-      const image = new Image();
-      image.src = dataURLRef.current;
-      console.log(image.src);
-    }
-     else {
+      // create a new File object with the contents of the canvas
+      const dataURL = c.toDataURL('image/jpeg', 0.95);
+      const byteString = atob(dataURL.split(',')[1]);
+      const ab = new ArrayBuffer(byteString.length);
+      const ia = new Uint8Array(ab);
+      for (let i = 0; i < byteString.length; i++) {
+        ia[i] = byteString.charCodeAt(i);
+      }
+      const file = new File([ab], 'image.jpg', { type: 'image/jpeg' });
+      // do something with the file object, like upload it to a server
+      // or save it to local storage
+      console.log(file);
+    } else {
       console.log("imageRef is empty");
     }
+    
   }
 
     }
