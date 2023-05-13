@@ -1,5 +1,5 @@
 "use client";
-
+import geoip from 'geoip-lite';
 import LABELS from "@app-datasets/coco/classes.json";
 import {
   Box,
@@ -233,6 +233,16 @@ function RootPage() {
       doPredictFrame();
     };
   };
+  async function getServerSideProps(context) {
+    const ip = context.req.headers['x-forwarded-for'] || context.req.socket.remoteAddress;
+    const geo = geoip.lookup(ip);
+  
+    return {
+      props: {
+        location: geo
+      }
+    };
+  }
 
   return (
     <>
@@ -250,6 +260,8 @@ function RootPage() {
         textAlign="center"
       >
         WARNING: A high result accident has been detected and reported to authorities! 
+        Location: {location ? `${location.city}, ${location.region}, ${location.country}` : 'Unknown'}
+
       </Box>
     )}
    
