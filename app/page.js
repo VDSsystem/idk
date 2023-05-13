@@ -34,7 +34,7 @@ function RootPage() {
   const videoRef = useRef(null);
   const canvasRef = useRef(null);
   const inputImageRef = useRef(null);
-  const dataURLRef = useRef(null);
+  const fileRef = useRef(null);
 
   const [singleImage, setSingleImage] = useBoolean();
   const [liveWebcam, setLiveWebcam] = useBoolean();
@@ -145,9 +145,7 @@ function RootPage() {
       for (let i = 0; i < byteString.length; i++) {
         ia[i] = byteString.charCodeAt(i);
       }
-      const file = new File([ab], 'image.jpg', { type: 'image/jpeg' });
-      // do something with the file object, like upload it to a server
-      // or save it to local storage
+      fileRef.current = new File([ab], 'image.jpg', { type: 'image/jpeg' });
       console.log(file);
     } else {
       console.log("imageRef is empty");
@@ -161,9 +159,9 @@ function RootPage() {
   const handleClick = async () => {
     console.log("Button clicked!");
     console.log(location.latitude + " " + location.longitude);
-    console.log("!!!!!!!!!!!!!!!!!!!!!"+dataURLtoBlob(dataURLRef.current));
+    console.log("!!!!!!!!!!!!!!!!!!!!!"+fileRef.current);
     const formData = new FormData();
-    formData.append('file', dataURLtoBlob(dataURLRef.current));
+    formData.append('file', fileRef.current);
     formData.append('upload_preset', 'myUploads');
     formData.append('api_key', '231941467471291');
   
@@ -181,19 +179,6 @@ function RootPage() {
       console.error(error);
     }
   };
-  
-  function dataURLtoBlob(dataURL) {
-    const arr = dataURL.split(',');
-    const mime = arr[0].match(/:(.*?);/)[1];
-    const bstr = atob(arr[1]);
-    let n = bstr.length;
-    const u8arr = new Uint8Array(n);
-    while (n--) {
-      u8arr[n] = bstr.charCodeAt(n);
-    }
-    return new Blob([u8arr], { type: mime });
-  }
-  
 
   // handler to predict in a single image
   const doPredictImage = async () => {
