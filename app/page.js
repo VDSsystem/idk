@@ -87,7 +87,7 @@ function RootPage() {
       const textWidth = ctx.measureText(label).width;
       const textHeight = parseInt(font, 10); // base 10
       console.log(klass);
-      if (classesData[i] === 0) {
+      if (klass == "Accident") {
         ctx.fillStyle = "#FF0000"; // red
       } else {
         ctx.fillStyle = "#0000FF"; // blue
