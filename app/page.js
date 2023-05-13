@@ -86,7 +86,7 @@ function RootPage() {
       const label = klass + " - " + score + "%";
       const textWidth = ctx.measureText(label).width;
       const textHeight = parseInt(font, 10); // base 10
-      if (classesData[i] === 0) {
+      if (klass == 0) {
         ctx.fillStyle = "#FF0000"; // red
         ctx.fillStyle = "#FF0000";
       ctx.fillRect(x1 - 1, y1 - (textHeight + 4), textWidth + 6, textHeight + 4);
