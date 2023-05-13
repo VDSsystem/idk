@@ -7,7 +7,6 @@ import {
   Center,
   Grid,
   GridItem,
-  Link,
   Icon,
   Stack,
   Text,
@@ -19,6 +18,8 @@ import * as tf from "@tensorflow/tfjs";
 import "@tensorflow/tfjs-backend-webgl";
 import { useEffect, useRef, useState } from "react";
 import { FaTimes } from "react-icons/fa";
+import { Link } from 'react-router-dom';
+
 
 const ZOO_MODEL = [{ name: "yolov5", child: ["yolov5n", "yolov5s", "best_web_model"] }];
 
@@ -224,9 +225,7 @@ function RootPage() {
       {/* main layer */}
       <Center as="section" flexDir="column" minH={{ base: "calc(100vh - 60px)", md: "calc(100vh - 100px)" }}>
         <Stack align="center" textAlign="center" spacing={4} mb={10} maxW={640}>
-        <NextChakraLink href="https://vadss.vercel.app/main.html" isExternal={true}>
-              HOME
-            </NextChakraLink>
+        <Link to="https://vadss.vercel.app/main.html">HOME</Link>
           <Text>
             Please select an image or open the camera to determine whether an accident occur or not
           </Text>
