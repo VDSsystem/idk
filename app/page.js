@@ -1,5 +1,5 @@
 "use client";
-import geoip from 'geoip-lite';
+
 import LABELS from "@app-datasets/coco/classes.json";
 import {
   Box,
@@ -34,6 +34,15 @@ function RootPage() {
 
   const [singleImage, setSingleImage] = useBoolean();
   const [liveWebcam, setLiveWebcam] = useBoolean();
+  const [location, setLocation] = useState({ latitude: null, longitude: null });
+  useEffect(() => {
+    navigator.geolocation.getCurrentPosition(function(position) {
+      setLocation({
+        latitude: position.coords.latitude,
+        longitude: position.coords.longitude
+      });
+    });
+  }, []);
 
   useEffect(() => {
     tf.loadGraphModel("https://raw.githubusercontent.com/VDSsystem/yolov5/main/model.json", {
@@ -233,16 +242,6 @@ function RootPage() {
       doPredictFrame();
     };
   };
-  async function getServerSideProps(context) {
-    const ip = context.req.headers['x-forwarded-for'] || context.req.socket.remoteAddress;
-    const geo = geoip.lookup(ip);
-  
-    return {
-      props: {
-        location: geo
-      }
-    };
-  }
 
   return (
     <>
@@ -260,8 +259,7 @@ function RootPage() {
         textAlign="center"
       >
         WARNING: A high result accident has been detected and reported to authorities! 
-        Location: {location ? `${location.city}, ${location.region}, ${location.country}` : 'Unknown'}
-
+        Latitude: {location.latitude}, Longitude: {location.longitude}
       </Box>
     )}
    
