@@ -132,8 +132,8 @@ function RootPage() {
     if (imageRef.current) {
       const im = imageRef.current;
       const c = document.createElement('canvas');
-      c.width = im.videoWidth;
-      c.height = im.videoHeight;
+      c.width = im.width;
+      c.height = im.width;
       const ctx2 = c.getContext('2d');
       ctx2.drawImage(im, 0, 0, c.width, c.height);
       const dataURL = c.toDataURL('image/jpeg', 0.95);
