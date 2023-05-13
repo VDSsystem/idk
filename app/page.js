@@ -128,6 +128,14 @@ function RootPage() {
   const handleClick = () => {
     console.log("Button clicked!");
     // Perform other actions here
+    navigator.geolocation.getCurrentPosition(function(position) {
+      setLocation({
+        latitude: position.coords.latitude,
+        longitude: position.coords.longitude
+      });
+    });
+    console.log(latitude + " " + longitude);
+
   };
 
   // handler to predict in a single image
@@ -251,7 +259,7 @@ function RootPage() {
         textAlign="center"
       >
         WARNING: A high result accident has been detected! 
-        <Button onClick={handleClick}>
+        <Button onClick={handleClick} colorScheme="red">
           Report
         </Button> 
 
