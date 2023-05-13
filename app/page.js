@@ -237,25 +237,20 @@ function RootPage() {
   return (
     <>
     {warning && (
-      
-      <Grid
-      gap={2}
-      templateColumns={{ base: "repeat(2, 1fr)", md: "repeat(2, 1fr)" }}
-      templateRows={{ base: "repeat(2, 1fr)", md: "repeat(1, 1fr)" }}
-      bg="darkred"
-      color="white"
-    >
-      <GridItem>
-        <Button disabled={singleImage || liveWebcam} onClick={() => inputImageRef.current.click()}>
-          REPORT!
-        </Button>
-      </GridItem>
-      <GridItem>
-        <Text>WARNING!!! A HIGH RESULT ACCIDENT DETECTED</Text>
-      </GridItem>
-    </Grid>
-    
-
+      <Box
+        position="absolute"
+        bottom={4}
+        left={4}
+        right={4}
+        p={4}
+        bgColor="red.600"
+        color="white"
+        fontSize="xl"
+        fontWeight="bold"
+        textAlign="center"
+      >
+        WARNING: A high result accident has been detected and reported to authorities! 
+      </Box>
     )}
    
       {/* loading layer  */}
