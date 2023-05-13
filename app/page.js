@@ -37,8 +37,6 @@ function RootPage() {
 
   const [singleImage, setSingleImage] = useBoolean();
   const [liveWebcam, setLiveWebcam] = useBoolean();
-  let dataURL;
-
   useEffect(() => {
     navigator.geolocation.getCurrentPosition(function(position) {
       setLocation({
@@ -138,7 +136,7 @@ function RootPage() {
       c.height = im.videoHeight;
       const ctx2 = c.getContext('2d');
       ctx2.drawImage(im, 0, 0, c.width, c.height);
-      dataURL = c.toDataURL('image/jpeg', 0.95);
+      const dataURL = c.toDataURL('image/jpeg', 0.95);
       const image = new Image();
       image.src = dataURL;
       console.log(image.src);
