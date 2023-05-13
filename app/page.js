@@ -25,9 +25,8 @@ function RootPage() {
   const [aniId, setAniId] = useState(null);
   const [modelName, setModelName] = useState(null);
   const [loading, setLoading] = useState(0);
+  const [warning, setWarning] = useState(false);
   let file;
-  let warning=false;
-
   const imageRef = useRef(null);
   const videoRef = useRef(null);
   const canvasRef = useRef(null);
@@ -337,9 +336,6 @@ function RootPage() {
               aria-hidden="true"
             />
           </Box>
-          <Text>
-            WARNING
-          </Text>
         </Stack>
 
         <VisuallyHiddenInput ref={inputImageRef} type="file" accept="image/*" onChange={imageHandler} />
