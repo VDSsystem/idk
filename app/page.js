@@ -121,7 +121,7 @@ function RootPage() {
     const maxScoreIndex = scoresData.indexOf(Math.max(...scoresData));
   // check if the score is above 0.9 and the class label is 0
   if (scoresData[maxScoreIndex] > 0.9 && classesData[maxScoreIndex] == 0) {
-    warning = true
+    setWarning(true);
     /*const data = new FormData();
     data.append('file', file);
     data.append('upload_preset', 'myUploads');
@@ -181,7 +181,7 @@ function RootPage() {
     console.log("boxes" + boxes + " scores" + scores + " classes" + classes);
     const maxScoreIndex = scoresData.indexOf(Math.max(...scoresData));
     if (scoresData[maxScoreIndex] > 0.8 && classesData[maxScoreIndex] == 0) {
-      warning = true;
+      setWarning(true);
     }
 
     // build the predictions data
