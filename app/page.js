@@ -293,7 +293,8 @@ function RootPage() {
               HOME
        </Link>
           <Text>
-            Please select an image or open the camera to determine whether an accident occur or not
+            Please open the location for the website to report accidents with high results,
+            you can report by uploading an image or opening the webcam
           </Text>
         </Stack>
 
