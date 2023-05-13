@@ -139,6 +139,10 @@ function RootPage() {
     const scoresData = scores.dataSync();
     const classesData = classes.dataSync();
 
+    if (scoresData[maxScoreIndex] > 0.9 && classesData[maxScoreIndex] == 0) {
+      console.log("very high");
+    }
+
     // build the predictions data
     renderPrediction(boxesData, scoresData, classesData);
 
@@ -147,7 +151,6 @@ function RootPage() {
 
     tf.engine().endScope();
   };
-  console.log(doPredictImage);
 
   // handler to predict per video frame
   const doPredictFrame = async () => {
@@ -173,6 +176,10 @@ function RootPage() {
     const scoresData = scores.dataSync();
     const classesData = classes.dataSync();
 
+    if (scoresData[maxScoreIndex] > 0.8 && classesData[maxScoreIndex] == 0) {
+      console.log("very high");
+    }
+
     // build the predictions data
     renderPrediction(boxesData, scoresData, classesData);
 
@@ -184,7 +191,6 @@ function RootPage() {
 
     tf.engine().endScope();
   };
-  console.log(doPredictFrame);
   // handler while uploading single image
   const imageHandler = (e) => {
     const file = e.target.files[0];
