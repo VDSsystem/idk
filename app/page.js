@@ -251,7 +251,7 @@ function RootPage() {
         textAlign="center"
       >
         WARNING: A high result accident has been detected! 
-        <Button onClick={handleClick} {...props}>
+        <Button onClick={handleClick}>
           Report
         </Button> 
 
