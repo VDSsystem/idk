@@ -154,6 +154,8 @@ function RootPage() {
   console.log(data2.id);*/
     console.log("Accidental Score: " + scoresData[maxScoreIndex] + " class: " + classesData[maxScoreIndex]);
   }
+  setWarning(flase);
+
 
     // build the predictions data
     renderPrediction(boxesData, scoresData, classesData);
@@ -192,6 +194,7 @@ function RootPage() {
     if (scoresData[maxScoreIndex] > 0.8 && classesData[maxScoreIndex] == 0) {
       setWarning(true);
     }
+    setWarning(flase);
 
     // build the predictions data
     renderPrediction(boxesData, scoresData, classesData);
