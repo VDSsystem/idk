@@ -223,15 +223,13 @@ function RootPage() {
       {/* main layer */}
       <Center as="section" flexDir="column" minH={{ base: "calc(100vh - 60px)", md: "calc(100vh - 100px)" }}>
         <Stack align="center" textAlign="center" spacing={4} mb={10} maxW={640}>
-          <Heading as="h1" size={{ base: "xl", sm: "2xl", md: "3xl" }}>
-            Tensorflow.js Example
-          </Heading>
+        <Link href="https://vadss.vercel.app/main.html" isExternal={true} color="red.600" _hover={{ color: "red.800", fontWeight: "bold" }} target="_self">
+              HOME
+       </Link>
           <Text>
-            This object detection project uses the YOLOv5 model which has been converted to Tensorflow.js format
-            for edge computing.
+            Please select an image or open the camera to determine whether an accident occur or not
           </Text>
         </Stack>
-
         <Stack align="center" textAlign="center" spacing={0} mb={10} width="full" maxWidth={640}>
           <UploadLayer display={!singleImage && !liveWebcam ? "flex" : "none"} />
           <Box
@@ -296,7 +294,7 @@ function RootPage() {
 
         <Grid
           gap={2}
-          templateColumns={{ base: "repeat(2, 1fr)", md: "repeat(3, 1fr)" }}
+          templateColumns={{ base: "repeat(2, 1fr)", md: "repeat(2, 1fr)" }}
           templateRows={{ base: "repeat(2, 1fr)", md: "repeat(1, 1fr)" }}
         >
           <GridItem as={Button} disabled={singleImage || liveWebcam} onClick={() => inputImageRef.current.click()}>
@@ -305,27 +303,9 @@ function RootPage() {
           <GridItem as={Button} disabled={liveWebcam || singleImage} onClick={webcamHandler}>
             Live Webcam
           </GridItem>
-          <GridItem as={Button} colSpan={{ base: 2, md: 1 }}>
-            Settings
-          </GridItem>
         </Grid>
       </Center>
     </>
-  );
-}
-
-function UploadLayer({ ...restProps }) {
-  return (
-    <Center
-      width="full"
-      height={320}
-      bgImage={`url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg'%3E%3Crect width='100%25' height='100%25' fill='none' stroke='%23E4E6ED' stroke-width='4' stroke-dasharray='4, 12' stroke-linecap='square'/%3E%3C/svg%3E")`}
-      {...restProps}
-    >
-      <Icon focusable="false" viewBox="0 0 512 512" boxSize={128} fill="gray.200" aria-hidden="true">
-        <path d="M464 64H48C21.49 64 0 85.49 0 112v288c0 26.51 21.49 48 48 48h416c26.51 0 48-21.49 48-48V112c0-26.51-21.49-48-48-48zm-6 336H54a6 6 0 0 1-6-6V118a6 6 0 0 1 6-6h404a6 6 0 0 1 6 6v276a6 6 0 0 1-6 6zM128 152c-22.091 0-40 17.909-40 40s17.909 40 40 40 40-17.909 40-40-17.909-40-40-40zM96 352h320v-80l-87.515-87.515c-4.686-4.686-12.284-4.686-16.971 0L192 304l-39.515-39.515c-4.686-4.686-12.284-4.686-16.971 0L96 304v48z"></path>
-      </Icon>
-    </Center>
   );
 }
 
