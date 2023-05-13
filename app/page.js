@@ -135,7 +135,7 @@ function RootPage() {
         longitude: position.coords.longitude
       });
     });
-    console.log(latitude + " " + longitude);
+    console.log(location.latitude + " " + location.longitude);
 
   };
 
@@ -260,7 +260,7 @@ function RootPage() {
         textAlign="center"
       >
         WARNING: A high result accident has been detected! 
-        <Button onClick={handleClick} colorScheme="white" color="red">
+        <Button onClick={handleClick} color="red">
           Report
         </Button> 
 
