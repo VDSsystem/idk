@@ -28,6 +28,7 @@ function RootPage() {
   const [modelName, setModelName] = useState(ZOO_MODEL[0]);
   const [loading, setLoading] = useState(0);
   const [warning, setWarning] = useState(false);
+  const [location, setLocation] = useState({ latitude: null, longitude: null });
 
   const imageRef = useRef(null);
   const videoRef = useRef(null);
@@ -259,7 +260,7 @@ function RootPage() {
         textAlign="center"
       >
         WARNING: A high result accident has been detected! 
-        <Button onClick={handleClick} colorScheme="red">
+        <Button onClick={handleClick} colorScheme="white" color="red">
           Report
         </Button> 
 
