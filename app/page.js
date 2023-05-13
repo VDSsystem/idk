@@ -107,7 +107,7 @@ function RootPage() {
 
   // handler to predict in a single image
   const doPredictImage = async () => {
-    setWarning(flase);
+    setWarning(false);
     if (!model) return;
 
     tf.engine().startScope();
