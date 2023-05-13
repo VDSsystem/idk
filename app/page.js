@@ -20,7 +20,7 @@ import "@tensorflow/tfjs-backend-webgl";
 import { useEffect, useRef, useState } from "react";
 import { FaTimes } from "react-icons/fa";
 
-const ZOO_MODEL = [{ name: "yolov5", child: ["yolov5n", "yolov5s", "best_web_model"] }];
+const ZOO_MODEL = [{ name: "yolov5", child: ["best_web_model"] }];
 
 function RootPage() {
   const [model, setModel] = useState(null);
@@ -37,7 +37,7 @@ function RootPage() {
   const [liveWebcam, setLiveWebcam] = useBoolean();
 
   useEffect(() => {
-    tf.loadGraphModel(`/model/${modelName.name}/${modelName.child[2]}/model.json`, {
+    tf.loadGraphModel(`/model/${modelName.name}/${modelName.child[0]}/model.json`, {
       onProgress: (fractions) => {
         setLoading(fractions);
       },
