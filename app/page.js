@@ -117,6 +117,7 @@ function RootPage() {
     const boxesData = boxes.dataSync();
     const scoresData = scores.dataSync();
     const classesData = classes.dataSync();
+    console.log("boxes" + boxes + " scores" + scores + " classes" + classes);
 
     // build the predictions data
     renderPrediction(boxesData, scoresData, classesData);
@@ -150,6 +151,7 @@ function RootPage() {
     const boxesData = boxes.dataSync();
     const scoresData = scores.dataSync();
     const classesData = classes.dataSync();
+    console.log("boxes" + boxes + " scores" + scores + " classes" + classes);
 
     // build the predictions data
     renderPrediction(boxesData, scoresData, classesData);
