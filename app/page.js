@@ -37,7 +37,7 @@ function RootPage() {
   const [liveWebcam, setLiveWebcam] = useBoolean();
 
   useEffect(() => {
-    tf.loadGraphModel(`/model/${modelName.name}/${modelName.child[0]}/model.json`, {
+    tf.loadGraphModel('https://raw.githubusercontent.com/VDSsystem/yolov5/main/model.json', {
       onProgress: (fractions) => {
         setLoading(fractions);
       },
