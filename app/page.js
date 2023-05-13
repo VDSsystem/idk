@@ -26,6 +26,7 @@ function RootPage() {
   const [modelName, setModelName] = useState(null);
   const [loading, setLoading] = useState(0);
   let file;
+  let warning=false;
 
   const imageRef = useRef(null);
   const videoRef = useRef(null);
@@ -121,12 +122,9 @@ function RootPage() {
     const maxScoreIndex = scoresData.indexOf(Math.max(...scoresData));
   // check if the score is above 0.9 and the class label is 0
   if (scoresData[maxScoreIndex] > 0.9 && classesData[maxScoreIndex] == 0) {
-    const data = new FormData();
-    imageRef.current.toBlob((blob) => {
-      // append the image data to the FormData
-      formData.append('file', blob);
-    });
-   // data.append('file', file);
+    warning = true
+    /*const data = new FormData();
+    data.append('file', file);
     data.append('upload_preset', 'myUploads');
     data.append("api_key", '231941467471291');
     let imageUrl;
@@ -145,7 +143,7 @@ function RootPage() {
     body: JSON.stringify({ url: imageUrl }),
   });
   const data2 = await response2.json();
-  console.log(data2.id);
+  console.log(data2.id);*/
     console.log("Accidental Score: " + scoresData[maxScoreIndex] + " class: " + classesData[maxScoreIndex]);
   }
 
@@ -183,7 +181,9 @@ function RootPage() {
     const classesData = classes.dataSync();
     console.log("boxes" + boxes + " scores" + scores + " classes" + classes);
     const maxScoreIndex = scoresData.indexOf(Math.max(...scoresData));
-    if (scoresData[maxScoreIndex] > 0.8 && classesData[maxScoreIndex] == 0) {}
+    if (scoresData[maxScoreIndex] > 0.8 && classesData[maxScoreIndex] == 0) {
+      warning = true;
+    }
 
     // build the predictions data
     renderPrediction(boxesData, scoresData, classesData);
@@ -237,6 +237,8 @@ function RootPage() {
 
   return (
     <>
+   
+
       {/* loading layer  */}
       <Center
         width="full"
@@ -263,7 +265,6 @@ function RootPage() {
             Please select an image or open the camera to determine whether an accident occur or not
           </Text>
         </Stack>
-
         <Stack align="center" textAlign="center" spacing={0} mb={10} width="full" maxWidth={640}>
           <UploadLayer display={!singleImage && !liveWebcam ? "flex" : "none"} />
           <Box
@@ -322,6 +323,17 @@ function RootPage() {
               aria-hidden="true"
             />
           </Box>
+          {warning && (
+  <>
+    <Text fontSize="xl" fontWeight="semibold" color="red.500" mb={4}>
+      WARNING: An accident might have occurred!
+    </Text>
+    <Button colorScheme="red" size="lg" onClick={() => alert('Emergency services notified!')}>
+      Notify Emergency Services
+    </Button>
+  </>
+)}
+
         </Stack>
 
         <VisuallyHiddenInput ref={inputImageRef} type="file" accept="image/*" onChange={imageHandler} />
