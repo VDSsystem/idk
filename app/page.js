@@ -112,7 +112,6 @@ function RootPage() {
 
     // predicting...
     const res = await model.executeAsync(input);
-    const imageDataUrl = imageRef.current.toDataURL();
 
     const [boxes, scores, classes] = res;
     const boxesData = boxes.dataSync();
@@ -123,7 +122,11 @@ function RootPage() {
   // check if the score is above 0.9 and the class label is 0
   if (scoresData[maxScoreIndex] > 0.9 && classesData[maxScoreIndex] == 0) {
     const data = new FormData();
-    data.append('file', imageDataUrl);
+    imageRef.current.toBlob((blob) => {
+      // append the image data to the FormData
+      formData.append('file', blob);
+    });
+   // data.append('file', file);
     data.append('upload_preset', 'myUploads');
     data.append("api_key", '231941467471291');
     let imageUrl;
