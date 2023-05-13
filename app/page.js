@@ -180,6 +180,7 @@ function RootPage() {
 
     tf.engine().endScope();
   };
+  console.log(doPredictImage);
 
   // handler to predict per video frame
   const doPredictFrame = async () => {
@@ -216,7 +217,7 @@ function RootPage() {
 
     tf.engine().endScope();
   };
-
+  console.log(doPredictFrame);
   // handler while uploading single image
   const imageHandler = (e) => {
     const file = e.target.files[0];
