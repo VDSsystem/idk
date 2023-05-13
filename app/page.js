@@ -265,15 +265,6 @@ function RootPage() {
       >
         WARNING: A high result accident has been detected and reported to authorities! 
 
-        <Link
-        href={`https://www.google.com/maps/search/?api=1&query=${location.longitude},${location.latitude}`}
-        isExternal={true}
-        color="white"
-        _hover={{ color: "white", fontWeight: "bold" }}
-        >
-          View location
-        </Link>
-
         
       </Box>
     )}
