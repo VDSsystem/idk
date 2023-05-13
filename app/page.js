@@ -192,9 +192,9 @@ function RootPage() {
     const classesData = classes.dataSync();
     console.log("boxes" + boxes + " scores" + scores + " classes" + classes);
     const maxScoreIndex = scoresData.indexOf(Math.max(...scoresData));
-    if (scoresData[maxScoreIndex] > 0.8 && classesData[maxScoreIndex] == 0) {
+    /*if (scoresData[maxScoreIndex] > 0.8 && classesData[maxScoreIndex] == 0) {
       setWarning(true);
-    }
+    }*/
     // build the predictions data
     renderPrediction(boxesData, scoresData, classesData);
 
