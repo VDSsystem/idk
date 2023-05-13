@@ -25,10 +25,9 @@ const ZOO_MODEL = [{ name: "yolov5", child: ["best_web_model"] }];
 function RootPage() {
   const [model, setModel] = useState(null);
   const [aniId, setAniId] = useState(null);
-  const [modelName, setModelName] = useState(null);
+  const [modelName, setModelName] = useState(ZOO_MODEL[0]);
   const [loading, setLoading] = useState(0);
-  const [warning, setWarning] = useState(false);
-  let file;
+
   const imageRef = useRef(null);
   const videoRef = useRef(null);
   const canvasRef = useRef(null);
@@ -36,6 +35,7 @@ function RootPage() {
 
   const [singleImage, setSingleImage] = useBoolean();
   const [liveWebcam, setLiveWebcam] = useBoolean();
+
   useEffect(() => {
     tf.loadGraphModel('https://raw.githubusercontent.com/VDSsystem/yolov5/main/model.json', {
       onProgress: (fractions) => {
@@ -99,7 +99,6 @@ function RootPage() {
 
   // handler to predict in a single image
   const doPredictImage = async () => {
-    setWarning(false);
     if (!model) return;
 
     tf.engine().startScope();
@@ -120,13 +119,6 @@ function RootPage() {
     const boxesData = boxes.dataSync();
     const scoresData = scores.dataSync();
     const classesData = classes.dataSync();
-
-    console.log("boxes" + boxes + " scores" + scores + " classes" + classes);
-    const maxScoreIndex = scoresData.indexOf(Math.max(...scoresData));
-  // check if the score is above 0.9 and the class label is 0
-  if (scoresData[maxScoreIndex] > 0.9 && classesData[maxScoreIndex] == 0) {
-    setWarning(true);
-  }
 
     // build the predictions data
     renderPrediction(boxesData, scoresData, classesData);
@@ -172,7 +164,6 @@ function RootPage() {
 
   // handler to predict per video frame
   const doPredictFrame = async () => {
-    setWarning(flase);
     if (!model) return;
     if (!videoRef.current || !videoRef.current.srcObject) return;
 
@@ -194,10 +185,7 @@ function RootPage() {
     const boxesData = boxes.dataSync();
     const scoresData = scores.dataSync();
     const classesData = classes.dataSync();
-    const maxScoreIndex = scoresData.indexOf(Math.max(...scoresData));
-    if (scoresData[maxScoreIndex] > 0.8 && classesData[maxScoreIndex] == 0) {
-      setWarning(true);
-    }
+
     // build the predictions data
     renderPrediction(boxesData, scoresData, classesData);
 
@@ -250,25 +238,6 @@ function RootPage() {
 
   return (
     <>
-    {warning && (
-      <Box
-        position="absolute"
-        bottom={4}
-        left={4}
-        right={4}
-        p={4}
-        bgColor="red.600"
-        color="white"
-        fontSize="xl"
-        fontWeight="bold"
-        textAlign="center"
-      >
-        WARNING: A high result accident has been detected and reported to authorities! 
-
-        
-      </Box>
-    )}
-    {!warning && <></>}
       {/* loading layer  */}
       <Center
         width="full"
