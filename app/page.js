@@ -125,6 +125,11 @@ function RootPage() {
     }
   };
 
+  const handleClick = () => {
+    console.log("Button clicked!");
+    // Perform other actions here
+  };
+
   // handler to predict in a single image
   const doPredictImage = async () => {
     if (!model) return;
@@ -245,7 +250,10 @@ function RootPage() {
         fontWeight="bold"
         textAlign="center"
       >
-        WARNING: A high result accident has been detected and reported to authorities! 
+        WARNING: A high result accident has been detected! 
+        <Button onClick={handleClick} {...props}>
+          Report
+        </Button> 
 
       </Box>
     )}
