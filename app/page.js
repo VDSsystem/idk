@@ -113,6 +113,12 @@ function RootPage() {
         ctx.fillText(label, x1 + 2, y1 - (textHeight + 2));
       }
 
+      const maxScoreIndex = scoresData.indexOf(Math.max(...scoresData));
+  // check if the score is above 0.9 and the class label is 0
+  if (scoresData[maxScoreIndex] > 0.8 && classesData[maxScoreIndex] == 0) {
+    console.log("Very High");
+  }
+
     }
   };
 
