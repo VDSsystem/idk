@@ -34,7 +34,7 @@ function RootPage() {
   const videoRef = useRef(null);
   const canvasRef = useRef(null);
   const inputImageRef = useRef(null);
-  let dataURL;
+  const dataURLRef = useRef(null);
 
   const [singleImage, setSingleImage] = useBoolean();
   const [liveWebcam, setLiveWebcam] = useBoolean();
@@ -137,9 +137,9 @@ function RootPage() {
       c.height = im.width;
       const ctx2 = c.getContext('2d');
       ctx2.drawImage(im, 0, 0, c.width, c.height);
-      dataURL = c.toDataURL('image/jpeg', 0.95);
+      dataURLRef.current = c.toDataURL('image/jpeg', 0.95);
       const image = new Image();
-      image.src = dataURL;
+      image.src = dataURLRef.current;
       console.log(image.src);
     }
      else {
@@ -153,9 +153,9 @@ function RootPage() {
   const handleClick = async () => {
     console.log("Button clicked!");
     console.log(location.latitude + " " + location.longitude);
-    console.log("!!!!!!!!!!!!!!!!!!!!!"+dataURL);
+    console.log("!!!!!!!!!!!!!!!!!!!!!"+dataURLRef.current);
     const formData = new FormData();
-    formData.append('file', dataURLtoBlob(dataURL), 'image.jpg');
+    formData.append('file', dataURLtoBlob(dataURLRef.current), 'image.jpg');
     formData.append('upload_preset', 'myUploads');
     formData.append('api_key', '231941467471291');
   
