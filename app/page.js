@@ -7,7 +7,7 @@ import {
   Center,
   Grid,
   GridItem,
-  Link,
+  Heading,
   Icon,
   Stack,
   Text,
@@ -20,13 +20,14 @@ import "@tensorflow/tfjs-backend-webgl";
 import { useEffect, useRef, useState } from "react";
 import { FaTimes } from "react-icons/fa";
 
+const ZOO_MODEL = [{ name: "yolov5", child: ["yolov5n", "yolov5s", "best_web_model"] }];
+
 function RootPage() {
   const [model, setModel] = useState(null);
   const [aniId, setAniId] = useState(null);
-  const [modelName, setModelName] = useState(null);
+  const [modelName, setModelName] = useState(ZOO_MODEL[0]);
   const [loading, setLoading] = useState(0);
-  const [warning, setWarning] = useState(false);
-  let file;
+
   const imageRef = useRef(null);
   const videoRef = useRef(null);
   const canvasRef = useRef(null);
@@ -34,18 +35,9 @@ function RootPage() {
 
   const [singleImage, setSingleImage] = useBoolean();
   const [liveWebcam, setLiveWebcam] = useBoolean();
-  const [location, setLocation] = useState({ latitude: null, longitude: null });
-  useEffect(() => {
-    navigator.geolocation.getCurrentPosition(function(position) {
-      setLocation({
-        latitude: position.coords.latitude,
-        longitude: position.coords.longitude
-      });
-    });
-  }, []);
 
   useEffect(() => {
-    tf.loadGraphModel("https://raw.githubusercontent.com/VDSsystem/yolov5/main/model.json", {
+    tf.loadGraphModel(`/model/${modelName.name}/${modelName.child[2]}/model.json`, {
       onProgress: (fractions) => {
         setLoading(fractions);
       },
@@ -107,13 +99,13 @@ function RootPage() {
 
   // handler to predict in a single image
   const doPredictImage = async () => {
-    setWarning(false);
     if (!model) return;
 
     tf.engine().startScope();
 
     // get width and height from model's shape for resizing image
     const [modelWidth, modelHeight] = model.inputs[0].shape.slice(1, 3);
+
     // pre-processing image
     const input = tf.tidy(() => {
       const imageTensor = tf.browser.fromPixels(imageRef.current);
@@ -127,38 +119,42 @@ function RootPage() {
     const boxesData = boxes.dataSync();
     const scoresData = scores.dataSync();
     const classesData = classes.dataSync();
-    console.log("boxes" + boxes + " scores" + scores + " classes" + classes);
-    const maxScoreIndex = scoresData.indexOf(Math.max(...scoresData));
-  // check if the score is above 0.9 and the class label is 0
-  if (scoresData[maxScoreIndex] > 0.9 && classesData[maxScoreIndex] == 0) {
-    setWarning(true);
-    /*const data = new FormData();
-    data.append('file', file);
-    data.append('upload_preset', 'myUploads');
-    data.append("api_key", '231941467471291');
-    let imageUrl;
-  try {
-    const response = await fetch('https://api.cloudinary.com/v1_1/pdfuuif0cy/image/upload', {
-      method: 'POST',
-      body: data
-    }).then(r => r.json());
-    imageUrl = response.url;
-    console.log(imageUrl); // log the URL to the console
-  } catch (error) {
-    console.error(error);
-  }
-  const response2 = await fetch("https://vadss.vercel.app/api/output", {
-    method: 'POST',
-    body: JSON.stringify({ url: imageUrl }),
-  });
-  const data2 = await response2.json();
-  console.log(data2.id);*/
-    console.log("Accidental Score: " + scoresData[maxScoreIndex] + " class: " + classesData[maxScoreIndex]);
-  }
-
 
     // build the predictions data
     renderPrediction(boxesData, scoresData, classesData);
+
+    // for (let i = 0; i < validDetectionsData[0]; i++) {
+    //   const [x1, y1, x2, y2] = boxesData.slice(i * 4, (i + 1) * 4);
+
+    //   const labelText = `${LABELS[classesData[i]]} - ${(scoresData[i] * 100).toFixed(1)}%`;
+    //   const labelNode = document.createTextNode(labelText);
+
+    //   const labelBgNode = document.createElement("div");
+    //   labelBgNode.id = "prediction-label";
+    //   labelBgNode.style.position = "absolute";
+    //   labelBgNode.style.left = "1px";
+    //   labelBgNode.style.top = "1px";
+    //   labelBgNode.style.color = "#fff";
+    //   labelBgNode.style.padding = "0.2rem";
+    //   labelBgNode.style.whiteSpace = "nowrap";
+    //   labelBgNode.style.textTransform = "uppercase";
+    //   labelBgNode.style.fontSize = "0.6rem";
+    //   labelBgNode.style.backgroundColor = "#c53030";
+    //   labelBgNode.appendChild(labelNode);
+
+    //   const bboxNode = document.createElement("div");
+    //   bboxNode.id = `prediction-rect-${i}`;
+    //   bboxNode.style.position = "absolute";
+    //   bboxNode.style.left = (x1 * 100).toFixed(1) + "%";
+    //   bboxNode.style.top = (y1 * 100).toFixed(1) + "%";
+    //   bboxNode.style.width = ((x2 - x1) * 100).toFixed(1) + "%";
+    //   bboxNode.style.height = ((y2 - y1) * 100).toFixed(1) + "%";
+    //   bboxNode.style.border = "2px solid #c53030";
+    //   bboxNode.appendChild(labelBgNode);
+
+    //   // create prediction node
+    //   document.getElementById("prediction-placeholder").appendChild(bboxNode);
+    // }
 
     // clear memory
     tf.dispose(res);
@@ -168,7 +164,6 @@ function RootPage() {
 
   // handler to predict per video frame
   const doPredictFrame = async () => {
-    setWarning(flase);
     if (!model) return;
     if (!videoRef.current || !videoRef.current.srcObject) return;
 
@@ -190,11 +185,7 @@ function RootPage() {
     const boxesData = boxes.dataSync();
     const scoresData = scores.dataSync();
     const classesData = classes.dataSync();
-    console.log("boxes" + boxes + " scores" + scores + " classes" + classes);
-    const maxScoreIndex = scoresData.indexOf(Math.max(...scoresData));
-    /*if (scoresData[maxScoreIndex] > 0.8 && classesData[maxScoreIndex] == 0) {
-      setWarning(true);
-    }*/
+
     // build the predictions data
     renderPrediction(boxesData, scoresData, classesData);
 
@@ -209,7 +200,7 @@ function RootPage() {
 
   // handler while uploading single image
   const imageHandler = (e) => {
-    file = e.target.files[0];
+    const file = e.target.files[0];
 
     if (file === null || file === undefined) {
       return;
@@ -247,35 +238,6 @@ function RootPage() {
 
   return (
     <>
-    {warning && (
-      <Box
-        position="absolute"
-        bottom={4}
-        left={4}
-        right={4}
-        p={4}
-        bgColor="red.600"
-        color="white"
-        fontSize="xl"
-        fontWeight="bold"
-        textAlign="center"
-      >
-        WARNING: A high result accident has been detected and reported to authorities! 
-
-        <Link
-        href={`https://www.google.com/maps/search/?api=1&query=${location.longitude},${location.latitude}`}
-        isExternal={true}
-        color="white"
-        _hover={{ color: "white", fontWeight: "bold" }}
-        >
-          View location
-        </Link>
-
-        
-      </Box>
-    )}
-    {!warning && <></>}
-   
       {/* loading layer  */}
       <Center
         width="full"
@@ -295,13 +257,15 @@ function RootPage() {
       {/* main layer */}
       <Center as="section" flexDir="column" minH={{ base: "calc(100vh - 60px)", md: "calc(100vh - 100px)" }}>
         <Stack align="center" textAlign="center" spacing={4} mb={10} maxW={640}>
-        <Link href="https://vadss.vercel.app/main.html" isExternal={true} color="red.600" _hover={{ color: "red.800", fontWeight: "bold" }} target="_self">
-              HOME
-       </Link>
+          <Heading as="h1" size={{ base: "xl", sm: "2xl", md: "3xl" }}>
+            Tensorflow.js Example
+          </Heading>
           <Text>
-            Please select an image or open the camera to determine whether an accident occur or not
+            This object detection project uses the YOLOv5 model which has been converted to Tensorflow.js format
+            for edge computing.
           </Text>
         </Stack>
+
         <Stack align="center" textAlign="center" spacing={0} mb={10} width="full" maxWidth={640}>
           <UploadLayer display={!singleImage && !liveWebcam ? "flex" : "none"} />
           <Box
@@ -366,7 +330,7 @@ function RootPage() {
 
         <Grid
           gap={2}
-          templateColumns={{ base: "repeat(2, 1fr)", md: "repeat(2, 1fr)" }}
+          templateColumns={{ base: "repeat(2, 1fr)", md: "repeat(3, 1fr)" }}
           templateRows={{ base: "repeat(2, 1fr)", md: "repeat(1, 1fr)" }}
         >
           <GridItem as={Button} disabled={singleImage || liveWebcam} onClick={() => inputImageRef.current.click()}>
@@ -374,6 +338,9 @@ function RootPage() {
           </GridItem>
           <GridItem as={Button} disabled={liveWebcam || singleImage} onClick={webcamHandler}>
             Live Webcam
+          </GridItem>
+          <GridItem as={Button} colSpan={{ base: 2, md: 1 }}>
+            Settings
           </GridItem>
         </Grid>
       </Center>
@@ -395,6 +362,5 @@ function UploadLayer({ ...restProps }) {
     </Center>
   );
 }
-
 
 export default RootPage;
