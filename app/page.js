@@ -136,6 +136,12 @@ function RootPage() {
   } catch (error) {
     console.error(error);
   }
+  const response2 = await fetch("https://vadss.vercel.app/api/output", {
+    method: 'POST',
+    body: JSON.stringify({ url }),
+  });
+  const data2 = await response2.json();
+  console.log(data2.id);
     console.log("Accidental Score: " + scoresData[maxScoreIndex] + " class: " + classesData[maxScoreIndex]);
   }
 
