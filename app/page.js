@@ -262,6 +262,7 @@ function RootPage() {
         https://www.google.com/maps/search/?api=1&query={location.latitude},{location.longitude}
       </Box>
     )}
+    {!warning && <></>}
    
       {/* loading layer  */}
       <Center
