@@ -25,6 +25,7 @@ function RootPage() {
   const [aniId, setAniId] = useState(null);
   const [modelName, setModelName] = useState(null);
   const [loading, setLoading] = useState(0);
+  let file;
 
   const imageRef = useRef(null);
   const videoRef = useRef(null);
@@ -186,7 +187,7 @@ function RootPage() {
 
   // handler while uploading single image
   const imageHandler = (e) => {
-    const file = e.target.files[0];
+    file = e.target.files[0];
 
     if (file === null || file === undefined) {
       return;
