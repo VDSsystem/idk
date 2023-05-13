@@ -79,26 +79,27 @@ function RootPage() {
       const height = y2 - y1;
 
       // draw the bounding box
-      ctx.strokeStyle = "#C53030";
       ctx.lineWidth = 2;
       ctx.strokeRect(x1, y1, width, height);
 
       const label = klass + " - " + score + "%";
       const textWidth = ctx.measureText(label).width;
       const textHeight = parseInt(font, 10); // base 10
-      console.log(klass);
-      console.log(classesData[i]);
       if (classesData[i] === 0) {
+        ctx.strokeStyle = "#FF0000";
         ctx.fillStyle = "#FF0000"; // red
-        ctx.fillStyle = "#FF0000";
+        // draw the label background
+      ctx.fillStyle = "#FF0000";
       ctx.fillRect(x1 - 1, y1 - (textHeight + 4), textWidth + 6, textHeight + 4);
 
       // draw the label text
       ctx.fillStyle = "#FFFFFF";
       ctx.fillText(label, x1 + 2, y1 - (textHeight + 2));
       } else if(classesData[i]===1) {
+        ctx.strokeStyle = "#0000FF";
         ctx.fillStyle = "#0000FF"; // blue
-        ctx.fillStyle = "#0000FF";
+        // draw the label background
+      ctx.fillStyle = "#0000FF";
       ctx.fillRect(x1 - 1, y1 - (textHeight + 4), textWidth + 6, textHeight + 4);
 
       // draw the label text
@@ -106,7 +107,6 @@ function RootPage() {
       ctx.fillText(label, x1 + 2, y1 - (textHeight + 2));
       }
 
-      // draw the label background
       
     }
   };
