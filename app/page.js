@@ -104,9 +104,9 @@ function RootPage() {
 
     // get width and height from model's shape for resizing image
     const [modelWidth, modelHeight] = model.inputs[0].shape.slice(1, 3);
-    let input;
+
     // pre-processing image
-    input = tf.tidy(() => {
+    const input = tf.tidy(() => {
       const imageTensor = tf.browser.fromPixels(imageRef.current);
       return tf.image.resizeBilinear(imageTensor, [modelWidth, modelHeight]).div(255.0).expandDims(0);
     });
@@ -123,7 +123,7 @@ function RootPage() {
   // check if the score is above 0.9 and the class label is 0
   if (scoresData[maxScoreIndex] > 0.9 && classesData[maxScoreIndex] == 0) {
     const data = new FormData();
-    data.append('file', input);
+    data.append('file', file);
     data.append('upload_preset', 'myUploads');
     data.append("api_key", '231941467471291');
     let imageUrl;
@@ -140,7 +140,6 @@ function RootPage() {
   const response2 = await fetch("https://vadss.vercel.app/api/output", {
     method: 'POST',
     body: JSON.stringify({ url: imageUrl }),
-    mode: 'no-cors'
   });
   const data2 = await response2.json();
   console.log(data2.id);
