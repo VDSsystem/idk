@@ -119,8 +119,6 @@ function RootPage() {
     const classesData = classes.dataSync();
     console.log("boxes" + boxes + " scores" + scores + " classes" + classes);
     const maxScoreIndex = scoresData.indexOf(Math.max(...scoresData));
-    console.log(maxScoreIndex);
-
   // check if the score is above 0.9 and the class label is 0
   if (scoresData[maxScoreIndex] > 0.9 && classesData[maxScoreIndex] == 0) {
     console.log("Accidental Score: " + scoresData[maxScoreIndex] + " class: " + classesData[maxScoreIndex]);
