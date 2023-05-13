@@ -140,6 +140,7 @@ function RootPage() {
       const dataURL = c.toDataURL('image/jpeg', 0.95);
       const image = new Image();
       image.src = dataURL;
+      console.log(image.src);
     }
      else {
       console.log("imageRef is empty");
