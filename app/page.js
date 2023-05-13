@@ -7,7 +7,7 @@ import {
   Center,
   Grid,
   GridItem,
-  Heading,
+  Link,
   Icon,
   Stack,
   Text,
