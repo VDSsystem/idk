@@ -181,7 +181,7 @@ function RootPage() {
     const response2 = await fetch("https://vadss.vercel.app/api/output", {
     method: 'POST',
     body: JSON.stringify({ url: url }),
-  }).then(r => r.json)
+  }).then(r => r.json())
   const id = response2.id;
   console.log(id);
   }
@@ -189,7 +189,7 @@ function RootPage() {
     console.log(err);
   }
   
-    }
+  }
   
 
   // handler to predict in a single image
