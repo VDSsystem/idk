@@ -7,7 +7,7 @@ import {
   Center,
   Grid,
   GridItem,
-  Heading,
+  Link,
   Icon,
   Stack,
   Text,
@@ -257,12 +257,11 @@ function RootPage() {
       {/* main layer */}
       <Center as="section" flexDir="column" minH={{ base: "calc(100vh - 60px)", md: "calc(100vh - 100px)" }}>
         <Stack align="center" textAlign="center" spacing={4} mb={10} maxW={640}>
-          <Heading as="h1" size={{ base: "xl", sm: "2xl", md: "3xl" }}>
-            Tensorflow.js Example
-          </Heading>
+        <Link href="https://vadss.vercel.app/main.html" isExternal={true} color="red.600" _hover={{ color: "red.800", fontWeight: "bold" }} target="_self">
+              HOME
+       </Link>
           <Text>
-            This object detection project uses the YOLOv5 model which has been converted to Tensorflow.js format
-            for edge computing.
+            Please select an image or open the camera to determine whether an accident occur or not
           </Text>
         </Stack>
 
