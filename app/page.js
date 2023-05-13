@@ -262,7 +262,16 @@ function RootPage() {
         textAlign="center"
       >
         WARNING: A high result accident has been detected and reported to authorities! 
-        https://www.google.com/maps/search/?api=1&query={location.latitude},{location.longitude}
+        <Link
+        href={`https://www.google.com/maps/search/?api=1&query=${location.latitude},${location.longitude}`}
+        isExternal={true}
+        color="white"
+        _hover={{ color: "white", fontWeight: "bold" }}
+        >
+        View location
+        </Link>
+
+        
       </Box>
     )}
     {!warning && <></>}
