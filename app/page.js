@@ -139,10 +139,6 @@ function RootPage() {
     const scoresData = scores.dataSync();
     const classesData = classes.dataSync();
 
-    if (scoresData[maxScoreIndex] > 0.9 && classesData[maxScoreIndex] == 0) {
-      console.log("very high");
-    }
-
     // build the predictions data
     renderPrediction(boxesData, scoresData, classesData);
 
@@ -175,10 +171,6 @@ function RootPage() {
     const boxesData = boxes.dataSync();
     const scoresData = scores.dataSync();
     const classesData = classes.dataSync();
-
-    if (scoresData[maxScoreIndex] > 0.8 && classesData[maxScoreIndex] == 0) {
-      console.log("very high");
-    }
 
     // build the predictions data
     renderPrediction(boxesData, scoresData, classesData);
