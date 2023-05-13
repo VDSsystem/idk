@@ -107,6 +107,7 @@ function RootPage() {
 
   // handler to predict in a single image
   const doPredictImage = async () => {
+    setWarning(flase);
     if (!model) return;
 
     tf.engine().startScope();
@@ -154,7 +155,6 @@ function RootPage() {
   console.log(data2.id);*/
     console.log("Accidental Score: " + scoresData[maxScoreIndex] + " class: " + classesData[maxScoreIndex]);
   }
-  setWarning(false);
 
 
     // build the predictions data
@@ -168,6 +168,7 @@ function RootPage() {
 
   // handler to predict per video frame
   const doPredictFrame = async () => {
+    setWarning(flase);
     if (!model) return;
     if (!videoRef.current || !videoRef.current.srcObject) return;
 
@@ -194,8 +195,6 @@ function RootPage() {
     if (scoresData[maxScoreIndex] > 0.8 && classesData[maxScoreIndex] == 0) {
       setWarning(true);
     }
-    setWarning(flase);
-
     // build the predictions data
     renderPrediction(boxesData, scoresData, classesData);
 
