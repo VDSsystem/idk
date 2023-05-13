@@ -27,6 +27,7 @@ function RootPage() {
   const [aniId, setAniId] = useState(null);
   const [modelName, setModelName] = useState(ZOO_MODEL[0]);
   const [loading, setLoading] = useState(0);
+  const [warning, setWarning] = useState(false);
 
   const imageRef = useRef(null);
   const videoRef = useRef(null);
@@ -57,6 +58,7 @@ function RootPage() {
 
   // helper for drawing into canvas
   const renderPrediction = (boxesData, scoresData, classesData) => {
+    setWarning(false);
     const ctx = canvasRef.current.getContext("2d");
 
     // clean canvas
@@ -116,6 +118,7 @@ function RootPage() {
       const maxScoreIndex = scoresData.indexOf(Math.max(...scoresData));
   // check if the score is above 0.9 and the class label is 0
   if (scoresData[maxScoreIndex] > 0.8 && classesData[maxScoreIndex] == 0) {
+    setWarning(true);
     console.log("Very High");
   }
 
@@ -229,6 +232,24 @@ function RootPage() {
 
   return (
     <>
+    {warning && (
+      <Box
+        position="absolute"
+        bottom={4}
+        left={4}
+        right={4}
+        p={4}
+        bgColor="red.600"
+        color="white"
+        fontSize="xl"
+        fontWeight="bold"
+        textAlign="center"
+      >
+        WARNING: A high result accident has been detected and reported to authorities! 
+
+      </Box>
+    )}
+    {!warning && <></>}
       {/* loading layer  */}
       <Center
         width="full"
