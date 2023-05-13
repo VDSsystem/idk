@@ -79,7 +79,6 @@ function RootPage() {
       const height = y2 - y1;
 
       // draw the bounding box
-      ctx.strokeStyle = "#C53030";
       ctx.lineWidth = 2;
       ctx.strokeRect(x1, y1, width, height);
 
@@ -88,8 +87,12 @@ function RootPage() {
       const textHeight = parseInt(font, 10); // base 10
       if (classesData[i] === 0) {
         ctx.fillStyle = "#FF0000"; // red
+        ctx.strokeStyle = "#FF0000";
+
       } else {
         ctx.fillStyle = "#0000FF"; // blue
+        ctx.strokeStyle = "#0000FF";
+
       }
 
       // draw the label background
