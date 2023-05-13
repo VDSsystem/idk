@@ -6,8 +6,8 @@ const _app_config = Object.freeze({
 /** @type {import("next").Metadata} */
 const _app_metadata = {
   title: {
-    default: "Tensorflow.js Example",
-    template: "%s | Tensorflow.js Example",
+    default: "VADS YOLOV5 MODEL",
+    template: "%s | VADS YOLOV5 MODEL",
   },
   description: `This object detection project uses the YOLOv5 model which has been converted to Tensorflow.js format for edge computing.`,
   icons: {
