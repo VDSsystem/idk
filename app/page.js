@@ -330,7 +330,7 @@ function RootPage() {
 
         <Grid
           gap={2}
-          templateColumns={{ base: "repeat(2, 1fr)", md: "repeat(3, 1fr)" }}
+          templateColumns={{ base: "repeat(2, 1fr)", md: "repeat(2, 1fr)" }}
           templateRows={{ base: "repeat(2, 1fr)", md: "repeat(1, 1fr)" }}
         >
           <GridItem as={Button} disabled={singleImage || liveWebcam} onClick={() => inputImageRef.current.click()}>
@@ -338,9 +338,6 @@ function RootPage() {
           </GridItem>
           <GridItem as={Button} disabled={liveWebcam || singleImage} onClick={webcamHandler}>
             Live Webcam
-          </GridItem>
-          <GridItem as={Button} colSpan={{ base: 2, md: 1 }}>
-            Settings
           </GridItem>
         </Grid>
       </Center>
