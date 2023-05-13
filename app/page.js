@@ -39,6 +39,15 @@ function RootPage() {
   const [liveWebcam, setLiveWebcam] = useBoolean();
 
   useEffect(() => {
+    navigator.geolocation.getCurrentPosition(function(position) {
+      setLocation({
+        latitude: position.coords.latitude,
+        longitude: position.coords.longitude
+      });
+    });
+  }, []);
+
+  useEffect(() => {
     tf.loadGraphModel(`/model/${modelName.name}/${modelName.child[2]}/model.json`, {
       onProgress: (fractions) => {
         setLoading(fractions);
@@ -129,12 +138,6 @@ function RootPage() {
   const handleClick = () => {
     console.log("Button clicked!");
     // Perform other actions here
-    navigator.geolocation.getCurrentPosition(function(position) {
-      setLocation({
-        latitude: position.coords.latitude,
-        longitude: position.coords.longitude
-      });
-    });
     console.log(location.latitude + " " + location.longitude);
 
   };
