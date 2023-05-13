@@ -7,7 +7,7 @@ import {
   Center,
   Grid,
   GridItem,
-  Heading,
+  Link,
   Icon,
   Stack,
   Text,
@@ -123,39 +123,6 @@ function RootPage() {
     // build the predictions data
     renderPrediction(boxesData, scoresData, classesData);
 
-    // for (let i = 0; i < validDetectionsData[0]; i++) {
-    //   const [x1, y1, x2, y2] = boxesData.slice(i * 4, (i + 1) * 4);
-
-    //   const labelText = `${LABELS[classesData[i]]} - ${(scoresData[i] * 100).toFixed(1)}%`;
-    //   const labelNode = document.createTextNode(labelText);
-
-    //   const labelBgNode = document.createElement("div");
-    //   labelBgNode.id = "prediction-label";
-    //   labelBgNode.style.position = "absolute";
-    //   labelBgNode.style.left = "1px";
-    //   labelBgNode.style.top = "1px";
-    //   labelBgNode.style.color = "#fff";
-    //   labelBgNode.style.padding = "0.2rem";
-    //   labelBgNode.style.whiteSpace = "nowrap";
-    //   labelBgNode.style.textTransform = "uppercase";
-    //   labelBgNode.style.fontSize = "0.6rem";
-    //   labelBgNode.style.backgroundColor = "#c53030";
-    //   labelBgNode.appendChild(labelNode);
-
-    //   const bboxNode = document.createElement("div");
-    //   bboxNode.id = `prediction-rect-${i}`;
-    //   bboxNode.style.position = "absolute";
-    //   bboxNode.style.left = (x1 * 100).toFixed(1) + "%";
-    //   bboxNode.style.top = (y1 * 100).toFixed(1) + "%";
-    //   bboxNode.style.width = ((x2 - x1) * 100).toFixed(1) + "%";
-    //   bboxNode.style.height = ((y2 - y1) * 100).toFixed(1) + "%";
-    //   bboxNode.style.border = "2px solid #c53030";
-    //   bboxNode.appendChild(labelBgNode);
-
-    //   // create prediction node
-    //   document.getElementById("prediction-placeholder").appendChild(bboxNode);
-    // }
-
     // clear memory
     tf.dispose(res);
 
@@ -257,12 +224,9 @@ function RootPage() {
       {/* main layer */}
       <Center as="section" flexDir="column" minH={{ base: "calc(100vh - 60px)", md: "calc(100vh - 100px)" }}>
         <Stack align="center" textAlign="center" spacing={4} mb={10} maxW={640}>
-          <Heading as="h1" size={{ base: "xl", sm: "2xl", md: "3xl" }}>
-            Tensorflow.js Example
-          </Heading>
+          <Link to="https://vadss.vercel.app/main.html">HOME</Link>
           <Text>
-            This object detection project uses the YOLOv5 model which has been converted to Tensorflow.js format
-            for edge computing.
+            Please select an image or open the camera to determine whether an accident occur or not
           </Text>
         </Stack>
 
