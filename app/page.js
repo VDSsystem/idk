@@ -132,16 +132,16 @@ function RootPage() {
     console.log("Very High");
     if (imageRef.current) {
       const im = imageRef.current;
-    const c = document.createElement('canvas');
-    c.width = im.videoWidth;
-    c.height = im.videoHeight;
-    const ctx2 = c.getContext('2d');
-    ctx2.drawImage(im, 0, 0, c.width, c.height);
-    c.toBlob((blob) => {
-    const image = new Image();
-    image.src = URL.createObjectURL(blob);
-  }, 'image/jpeg', 0.95);
-    } else {
+      const c = document.createElement('canvas');
+      c.width = im.videoWidth;
+      c.height = im.videoHeight;
+      const ctx2 = c.getContext('2d');
+      ctx2.drawImage(im, 0, 0, c.width, c.height);
+      const dataURL = c.toDataURL('image/jpeg', 0.95);
+      const image = new Image();
+      image.src = dataURL;
+    }
+     else {
       console.log("imageRef is empty");
     }
   }
