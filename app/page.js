@@ -23,6 +23,7 @@ import { FaTimes } from "react-icons/fa";
 const ZOO_MODEL = [{ name: "yolov5", child: ["yolov5n", "yolov5s", "best_web_model"] }];
 
 function RootPage() {
+  document.title = "VADS YOLOV5 MODEL";
   const [model, setModel] = useState(null);
   const [aniId, setAniId] = useState(null);
   const [modelName, setModelName] = useState(ZOO_MODEL[0]);
@@ -86,9 +87,14 @@ function RootPage() {
       const label = klass + " - " + score + "%";
       const textWidth = ctx.measureText(label).width;
       const textHeight = parseInt(font, 10); // base 10
+      if (classesData[i] === 0) {
+        ctx.fillStyle = "#FF0000"; // red
+      } else {
+        ctx.fillStyle = "#0000FF"; // blue
+      }
 
       // draw the label background
-      ctx.fillStyle = "#C53030";
+      //ctx.fillStyle = "#C53030";
       ctx.fillRect(x1 - 1, y1 - (textHeight + 4), textWidth + 6, textHeight + 4);
 
       // draw the label text
