@@ -78,20 +78,26 @@ function RootPage() {
       const width = x2 - x1;
       const height = y2 - y1;
 
-      // draw the bounding box
-      ctx.strokeStyle = "#C53030";
-      ctx.lineWidth = 2;
-      ctx.strokeRect(x1, y1, width, height);
+      if (classesData[i] == 0) {
+        ctx.fillStyle = "#FF0000"; // red
+        // draw the bounding box
+        ctx.strokeStyle = "#FF0000";
+        ctx.lineWidth = 2;
+        ctx.strokeRect(x1, y1, width, height);
+
+      } else if (classesData[i] == 1){
+        ctx.fillStyle = "#0000FF"; // blue
+         // draw the bounding box
+        ctx.strokeStyle = "#0000FF";
+        ctx.lineWidth = 2;
+        ctx.strokeRect(x1, y1, width, height);
+      }
 
       const label = klass + " - " + score + "%";
       const textWidth = ctx.measureText(label).width;
       const textHeight = parseInt(font, 10); // base 10
       console.log(klass);
-      if (klass == "Accident") {
-        ctx.fillStyle = "#FF0000"; // red
-      } else {
-        ctx.fillStyle = "#0000FF"; // blue
-      }
+      
 
       // draw the label background
       ctx.fillStyle = "#C53030";
