@@ -224,7 +224,9 @@ function RootPage() {
       {/* main layer */}
       <Center as="section" flexDir="column" minH={{ base: "calc(100vh - 60px)", md: "calc(100vh - 100px)" }}>
         <Stack align="center" textAlign="center" spacing={4} mb={10} maxW={640}>
-          <Link to="https://vadss.vercel.app/main.html">HOME</Link>
+        <NextChakraLink href="https://vadss.vercel.app/main.html" isExternal={true}>
+              HOME
+            </NextChakraLink>
           <Text>
             Please select an image or open the camera to determine whether an accident occur or not
           </Text>
