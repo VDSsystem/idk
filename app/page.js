@@ -160,23 +160,22 @@ function RootPage() {
     console.log("Button clicked!");
     console.log(location.latitude + " " + location.longitude);
     console.log("!!!!!!!!!!!!!!!!!!!!!"+fileRef.current);
-    const formData = new FormData();
-    formData.append('file', fileRef.current);
-    formData.append('upload_preset', 'myUploads');
-    formData.append('api_key', '231941467471291');
-  
-    try {
-      const response = await fetch('https://api.cloudinary.com/v1_1/pdfuuif0cy/image/upload', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: formData
-      }).then(r => r.json());
-      const imageUrl = response.url;
-      console.log(imageUrl);
-    } catch (error) {
-      console.error(error);
+    const data = new FormData();
+    const file = fileRef.current;
+    data.append('file', file);
+    data.append('upload_preset', 'myUploads');
+    data.append("api_key", '231941467471291');
+    let imageUrl;
+  try {
+    const response = await fetch('https://api.cloudinary.com/v1_1/pdfuuif0cy/image/upload', {
+      method: 'POST',
+      body: data
+    }).then(r => r.json());
+    imageUrl = response.url;
+    console.log(imageUrl); // log the URL to the console
+  } catch (error) {
+    console.error(error);
+  }error(error);
     }
   };
 
