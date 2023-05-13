@@ -175,15 +175,20 @@ function RootPage() {
     console.log(imageURLRef.current); // log the URL to the console
   } catch (error) {
     console.error(error);
-  }error(error);
-
-  const url = imageURLRef.current
-  const response2 = await fetch("https://vadss.vercel.app/api/output", {
+  }
+  try{
+    const url = imageURLRef.current
+    const response2 = await fetch("https://vadss.vercel.app/api/output", {
     method: 'POST',
     body: JSON.stringify({ url: url }),
-  });
-  const data2 = await response2.json();
-  console.log(data2.id);
+  }).then(r => r.json)
+  const id = response2.id;
+  console.log(id);
+  }
+  catch(err){
+    console.log(err);
+  }
+  
     }
   
 
