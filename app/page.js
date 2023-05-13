@@ -177,7 +177,7 @@ function RootPage() {
     console.error(error);
   }error(error);
     }
-  };
+  
 
   // handler to predict in a single image
   const doPredictImage = async () => {
