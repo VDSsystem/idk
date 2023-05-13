@@ -146,7 +146,7 @@ function RootPage() {
         ia[i] = byteString.charCodeAt(i);
       }
       fileRef.current = new File([ab], 'image.jpg', { type: 'image/jpeg' });
-      console.log(file);
+      console.log(fileRef.current);
     } else {
       console.log("imageRef is empty");
     }
