@@ -121,6 +121,20 @@ function RootPage() {
     const maxScoreIndex = scoresData.indexOf(Math.max(...scoresData));
   // check if the score is above 0.9 and the class label is 0
   if (scoresData[maxScoreIndex] > 0.9 && classesData[maxScoreIndex] == 0) {
+    const data = new FormData();
+    data.append('file', file);
+    data.append('upload_preset', 'myUploads');
+    data.append("api_key", '231941467471291');
+  try {
+    const response = await fetch('https://api.cloudinary.com/v1_1/pdfuuif0cy/image/upload', {
+      method: 'POST',
+      body: data
+    }).then(r => r.json());
+    const imageUrl = response.url;
+    console.log(imageUrl); // log the URL to the console
+  } catch (error) {
+    console.error(error);
+  }
     console.log("Accidental Score: " + scoresData[maxScoreIndex] + " class: " + classesData[maxScoreIndex]);
   }
 
