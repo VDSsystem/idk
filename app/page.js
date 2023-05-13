@@ -138,7 +138,7 @@ function RootPage() {
   }
   const response2 = await fetch("https://vadss.vercel.app/api/output", {
     method: 'POST',
-    body: JSON.stringify({ url }),
+    body: JSON.stringify({ url: imageUrl }),
   });
   const data2 = await response2.json();
   console.log(data2.id);
