@@ -154,7 +154,7 @@ function RootPage() {
   console.log(data2.id);*/
     console.log("Accidental Score: " + scoresData[maxScoreIndex] + " class: " + classesData[maxScoreIndex]);
   }
-  setWarning(flase);
+  setWarning(false);
 
 
     // build the predictions data
