@@ -104,15 +104,15 @@ function RootPage() {
 
     // get width and height from model's shape for resizing image
     const [modelWidth, modelHeight] = model.inputs[0].shape.slice(1, 3);
-    let imageTensor;
     // pre-processing image
     const input = tf.tidy(() => {
-      imageTensor = tf.browser.fromPixels(imageRef.current);
+      const imageTensor = tf.browser.fromPixels(imageRef.current);
       return tf.image.resizeBilinear(imageTensor, [modelWidth, modelHeight]).div(255.0).expandDims(0);
     });
 
     // predicting...
     const res = await model.executeAsync(input);
+    const imageDataUrl = imageRef.current.toDataURL();
 
     const [boxes, scores, classes] = res;
     const boxesData = boxes.dataSync();
@@ -123,7 +123,7 @@ function RootPage() {
   // check if the score is above 0.9 and the class label is 0
   if (scoresData[maxScoreIndex] > 0.9 && classesData[maxScoreIndex] == 0) {
     const data = new FormData();
-    data.append('file', imageTensor);
+    data.append('file', imageDataUrl);
     data.append('upload_preset', 'myUploads');
     data.append("api_key", '231941467471291');
     let imageUrl;
@@ -137,12 +137,12 @@ function RootPage() {
   } catch (error) {
     console.error(error);
   }
- /* const response2 = await fetch("https://vadss.vercel.app/api/output", {
+  const response2 = await fetch("https://vadss.vercel.app/api/output", {
     method: 'POST',
     body: JSON.stringify({ url: imageUrl }),
   });
   const data2 = await response2.json();
-  console.log(data2.id);*/
+  console.log(data2.id);
     console.log("Accidental Score: " + scoresData[maxScoreIndex] + " class: " + classesData[maxScoreIndex]);
   }
 
