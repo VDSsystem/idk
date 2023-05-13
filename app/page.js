@@ -35,6 +35,9 @@ function RootPage() {
 
   const [singleImage, setSingleImage] = useBoolean();
   const [liveWebcam, setLiveWebcam] = useBoolean();
+  useEffect(() => {
+    document.title = 'VADS YOLOV5 MODEL';
+  }, []);
 
   useEffect(() => {
     tf.loadGraphModel(`/model/${modelName.name}/${modelName.child[2]}/model.json`, {
@@ -85,7 +88,7 @@ function RootPage() {
       const label = klass + " - " + score + "%";
       const textWidth = ctx.measureText(label).width;
       const textHeight = parseInt(font, 10); // base 10
-      if (classesData[i] === 0) {
+      if (classesData[i] == 0) {
         ctx.fillStyle = "#FF0000"; // red
         ctx.strokeStyle = "#FF0000";
 
@@ -100,7 +103,7 @@ function RootPage() {
       ctx.fillRect(x1 - 1, y1 - (textHeight + 4), textWidth + 6, textHeight + 4);
 
       // draw the label text
-      ctx.fillStyle = "#FFFFFF";
+      //ctx.fillStyle = "#FFFFFF";
       ctx.fillText(label, x1 + 2, y1 - (textHeight + 2));
     }
   };
