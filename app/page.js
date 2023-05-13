@@ -237,8 +237,22 @@ function RootPage() {
 
   return (
     <>
+    {warning && (
+      <Box
+        position="absolute"
+        bottom={4}
+        left={4}
+        right={4}
+        p={4}
+        bgColor="red.600"
+        color="white"
+        fontSize="xl"
+        fontWeight="bold"
+      >
+        WARNING: An accident has been detected!
+      </Box>
+    )}
    
-
       {/* loading layer  */}
       <Center
         width="full"
@@ -323,17 +337,9 @@ function RootPage() {
               aria-hidden="true"
             />
           </Box>
-          {warning && (
-  <>
-    <Text fontSize="xl" fontWeight="semibold" color="red.500" mb={4}>
-      WARNING: An accident might have occurred!
-    </Text>
-    <Button colorScheme="red" size="lg" onClick={() => alert('Emergency services notified!')}>
-      Notify Emergency Services
-    </Button>
-  </>
-)}
-
+          <Text>
+            WARNING
+          </Text>
         </Stack>
 
         <VisuallyHiddenInput ref={inputImageRef} type="file" accept="image/*" onChange={imageHandler} />
@@ -369,5 +375,6 @@ function UploadLayer({ ...restProps }) {
     </Center>
   );
 }
+
 
 export default RootPage;
