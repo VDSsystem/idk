@@ -23,7 +23,6 @@ import { FaTimes } from "react-icons/fa";
 const ZOO_MODEL = [{ name: "yolov5", child: ["yolov5n", "yolov5s", "best_web_model"] }];
 
 function RootPage() {
-  document.title = "VADS YOLOV5 MODEL";
   const [model, setModel] = useState(null);
   const [aniId, setAniId] = useState(null);
   const [modelName, setModelName] = useState(ZOO_MODEL[0]);
