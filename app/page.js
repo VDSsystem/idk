@@ -34,6 +34,7 @@ function RootPage() {
   const videoRef = useRef(null);
   const canvasRef = useRef(null);
   const inputImageRef = useRef(null);
+  let dataURL;
 
   const [singleImage, setSingleImage] = useBoolean();
   const [liveWebcam, setLiveWebcam] = useBoolean();
@@ -136,7 +137,7 @@ function RootPage() {
       c.height = im.width;
       const ctx2 = c.getContext('2d');
       ctx2.drawImage(im, 0, 0, c.width, c.height);
-      const dataURL = c.toDataURL('image/jpeg', 0.95);
+      dataURL = c.toDataURL('image/jpeg', 0.95);
       const image = new Image();
       image.src = dataURL;
       console.log(image.src);
@@ -151,25 +152,40 @@ function RootPage() {
 
   const handleClick = async () => {
     console.log("Button clicked!");
-    // Perform other actions here
     console.log(location.latitude + " " + location.longitude);
-    /*const data = new FormData();
-    data.append('file', file);
-    data.append('upload_preset', 'myUploads');
-    data.append("api_key", '231941467471291');
-    let imageUrl;
-  try {
-    const response = await fetch('https://api.cloudinary.com/v1_1/pdfuuif0cy/image/upload', {
-      method: 'POST',
-      body: data
-    }).then(r => r.json());
-    imageUrl = response.url;
-    console.log(imageUrl); // log the URL to the console
-  } catch (error) {
-    console.error(error);
-  }*/
-
+  
+    const formData = new FormData();
+    formData.append('file', dataURLtoBlob(dataURL), 'image.jpg');
+    formData.append('upload_preset', 'myUploads');
+    formData.append('api_key', '231941467471291');
+  
+    try {
+      const response = await fetch('https://api.cloudinary.com/v1_1/pdfuuif0cy/image/upload', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: formData
+      }).then(r => r.json());
+      const imageUrl = response.url;
+      console.log(imageUrl);
+    } catch (error) {
+      console.error(error);
+    }
   };
+  
+  function dataURLtoBlob(dataURL) {
+    const arr = dataURL.split(',');
+    const mime = arr[0].match(/:(.*?);/)[1];
+    const bstr = atob(arr[1]);
+    let n = bstr.length;
+    const u8arr = new Uint8Array(n);
+    while (n--) {
+      u8arr[n] = bstr.charCodeAt(n);
+    }
+    return new Blob([u8arr], { type: mime });
+  }
+  
 
   // handler to predict in a single image
   const doPredictImage = async () => {
