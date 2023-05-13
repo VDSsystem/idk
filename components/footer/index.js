@@ -6,7 +6,6 @@ function Footer() {
   return (
     <Container as="footer" py={8}>
       <Stack align="center" textAlign="center">
-       
           <Text>MIT License © {date} Pravasta Caraka Bramastagiri</Text>
       </Stack>
     </Container>
