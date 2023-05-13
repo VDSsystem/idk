@@ -305,9 +305,6 @@ function RootPage() {
           <GridItem as={Button} disabled={liveWebcam || singleImage} onClick={webcamHandler}>
             Live Webcam
           </GridItem>
-          <GridItem as={Button} colSpan={{ base: 2, md: 1 }}>
-            Settings
-          </GridItem>
         </Grid>
       </Center>
     </>
