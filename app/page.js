@@ -222,9 +222,9 @@ function RootPage() {
       {/* main layer */}
       <Center as="section" flexDir="column" minH={{ base: "calc(100vh - 60px)", md: "calc(100vh - 100px)" }}>
         <Stack align="center" textAlign="center" spacing={4} mb={10} maxW={640}>
-        <Link href="https://vadss.vercel.app/main.html" isExternal={true}>
-      HOME
-    </Link>
+        <Link href="https://vadss.vercel.app/main.html" isExternal={true} color="red.600">
+              HOME
+       </Link>
           <Text>
             Please select an image or open the camera to determine whether an accident occur or not
           </Text>
@@ -294,7 +294,7 @@ function RootPage() {
 
         <Grid
           gap={2}
-          templateColumns={{ base: "repeat(2, 1fr)", md: "repeat(3, 1fr)" }}
+          templateColumns={{ base: "repeat(2, 1fr)", md: "repeat(2, 1fr)" }}
           templateRows={{ base: "repeat(2, 1fr)", md: "repeat(1, 1fr)" }}
         >
           <GridItem as={Button} disabled={singleImage || liveWebcam} onClick={() => inputImageRef.current.click()}>
