@@ -153,9 +153,9 @@ function RootPage() {
   const handleClick = async () => {
     console.log("Button clicked!");
     console.log(location.latitude + " " + location.longitude);
-    console.log("!!!!!!!!!!!!!!!!!!!!!"+dataURLRef.current);
+    console.log("!!!!!!!!!!!!!!!!!!!!!"+dataURLtoBlob(dataURLRef.current));
     const formData = new FormData();
-    formData.append('file', dataURLtoBlob(dataURLRef.current), 'image.jpg');
+    formData.append('file', dataURLtoBlob(dataURLRef.current));
     formData.append('upload_preset', 'myUploads');
     formData.append('api_key', '231941467471291');
   
