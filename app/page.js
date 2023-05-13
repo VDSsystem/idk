@@ -259,7 +259,7 @@ function RootPage() {
         textAlign="center"
       >
         WARNING: A high result accident has been detected and reported to authorities! 
-        Latitude: {location.latitude}, Longitude: {location.longitude}
+        https://www.google.com/maps/search/?api=1&query={location.latitude},{location.longitude}
       </Box>
     )}
    
