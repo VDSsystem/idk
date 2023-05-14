@@ -172,7 +172,6 @@ function RootPage() {
   const handleClick = async () => {
     console.log("Button clicked!");
     console.log(location.latitude + " " + location.longitude);
-    console.log("!!!!!!!!!!!!!!!!!!!!!"+fileRef2.name);
     lngRef.current =  location.longitude
     latRef.current = location.latitude
     const data = new FormData();
