@@ -176,10 +176,10 @@ function RootPage() {
     lngRef.current =  location.longitude
     latRef.current = location.latitude
     const data = new FormData();
-    if (imageRef.current) {
+    if (fileRef) {
       data.append('file', fileRef);
     }
-    else if (videoRef.current){
+    if (fileRef2){
       data.append('file', fileRef2);
 
     }
