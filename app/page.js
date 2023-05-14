@@ -220,7 +220,6 @@ function RootPage() {
     console.log(err);
   }
   
-  
 }
 
   // handler to predict in a single image
@@ -343,9 +342,10 @@ function RootPage() {
         fontWeight="bold"
         textAlign="center"
       >
-        WARNING: A high result accident has been detected! 
+        WARNING: A high result accident has been detected!
+        {fileRef2 && <span>{fileRef2.name}</span>}
         <Button onClick={handleClick} color="red">
-          Report
+          Report 
         </Button> 
 
       </Box>
