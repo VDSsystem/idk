@@ -150,8 +150,22 @@ function RootPage() {
         ia[i] = byteString.charCodeAt(i);
       }
       fileRef.current = new File([ab], 'image.jpg', { type: 'image/jpeg' });
-    } else {
-      console.log("imageRef is empty");
+    } else if(videoRef.current) {
+      const im = videoRef.current;
+      const c = document.createElement('canvas');
+      c.width = im.width;
+      c.height = im.width;
+      const ctx2 = c.getContext('2d');
+      ctx2.drawImage(im, 0, 0, c.width, c.height);
+      // create a new File object with the contents of the canvas
+      const dataURL = c.toDataURL('image/jpeg', 0.95);
+      const byteString = atob(dataURL.split(',')[1]);
+      const ab = new ArrayBuffer(byteString.length);
+      const ia = new Uint8Array(ab);
+      for (let i = 0; i < byteString.length; i++) {
+        ia[i] = byteString.charCodeAt(i);
+      }
+      fileRef.current = new File([ab], 'image.jpg', { type: 'image/jpeg' });
     }
     
   }
