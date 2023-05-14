@@ -31,13 +31,14 @@ function RootPage() {
   const [loading, setLoading] = useState(0);
   const [warning, setWarning] = useState(false);
   const [location, setLocation] = useState({ latitude: null, longitude: null });
+  const [fileRef, setFileRef] = useState(null);
+  const [fileRef2, setFileRef2] = useState(null);
+
 
   const imageRef = useRef(null);
   const videoRef = useRef(null);
   const canvasRef = useRef(null);
   const inputImageRef = useRef(null);
-  const fileRef = useRef(null);
-  const fileRef2 = useRef(null);
   const imageURLRef = useRef(null);
   const lngRef = useRef(null);
   const latRef = useRef(null);
@@ -152,7 +153,7 @@ function RootPage() {
       for (let i = 0; i < byteString.length; i++) {
         ia[i] = byteString.charCodeAt(i);
       }
-      fileRef.current = new File([ab], 'image.jpg', { type: 'image/jpeg' });
+      setFileRef(new File([ab], 'image.jpg', { type: 'image/jpeg' }));
     } if (videoRef.current && videoRef.current.srcObject) {
       const video = videoRef.current;
       const track = video.srcObject.getVideoTracks()[0];
@@ -165,9 +166,7 @@ function RootPage() {
           const ctx = canvas.getContext('2d');
           ctx.drawImage(imageBitmap, 0, 0);
           canvas.toBlob(blob => {
-            const file = new File([blob], 'screenshot.jpg', { type: 'image/jpeg' });
-            fileRef2.current = file;
-            console.log(fileRef2.current); // log the created file to the console for debugging
+            setFileRef2( new File([blob], 'screenshot.jpg', { type: 'image/jpeg' }));
           }, 'image/jpeg', 0.95);
         })
         .catch(error => {
@@ -182,18 +181,17 @@ function RootPage() {
   const handleClick = async () => {
     console.log("Button clicked!");
     console.log(location.latitude + " " + location.longitude);
-    console.log("!!!!!!!!!!!!!!!!!!!!!"+fileRef.current);
+    console.log("!!!!!!!!!!!!!!!!!!!!!"+fileRef2);
     lngRef.current =  location.longitude
     latRef.current = location.latitude
     const data = new FormData();
-    let file = null;
     if (imageRef.current) {
-      file = fileRef.current;
+      data.append('file', fileRef);
     }
     else if (videoRef.current){
-      file = fileRef2.current
+      data.append('file', fileRef2);
+
     }
-    data.append('file', file);
     data.append('upload_preset', 'myUploads');
     data.append("api_key", '231941467471291');
   try {
