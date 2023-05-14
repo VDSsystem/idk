@@ -177,21 +177,18 @@ function RootPage() {
     console.error(error);
   }
   try{
-    const url = imageURLRef.current;
-    const params = new URLSearchParams();
-    params.append('url', url);
+    const url = imageURLRef.current
     const response2 = await fetch("https://vadss.vercel.app/api/output", {
-      method: 'POST',
-      body: params,
-    }).then(r => r.json());
-    const id = response2.id;
-    console.log(id);
+    method: 'POST',
+    body: JSON.stringify({ url: url }),
+  }).then(r => r.json())
+  const id = response2.id;
+  console.log(id);
   }
   catch(err){
     console.log(err);
   }
-}
-  
+  }
   
 
   // handler to predict in a single image
