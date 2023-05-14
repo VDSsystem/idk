@@ -151,30 +151,25 @@ function RootPage() {
         ia[i] = byteString.charCodeAt(i);
       }
       fileRef.current = new File([ab], 'image.jpg', { type: 'image/jpeg' });
-    } else if(videoRef.current.srcObject) {
-      const mediaRecorder = new MediaRecorder(videoRef.current.srcObject);
-      let chunks = [];
-
-      mediaRecorder.ondataavailable = e => {
-       chunks.push(e.data);
-        };
-
-      mediaRecorder.onstop = () => {
-        const blob = new Blob(chunks, { type: 'video/mp4' });
-        fileRef2.current = new File([blob], 'video.mp4', { type: 'video/mp4' });
-        // do something with the file
-      };
-
-      mediaRecorder.start();
-
-      setTimeout(() => {
-         mediaRecorder.stop();
-          }, 5000); // stop recording after 5 seconds
-
-    }
+    } else if(videoRef.current) {
+      const video = videoRef.current;
+  const canvas = document.createElement('canvas');
+  canvas.width = video.videoWidth;
+  canvas.height = video.videoHeight;
+  const ctx = canvas.getContext('2d');
+  ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+  const dataURL = canvas.toDataURL('image/jpeg', 0.95);
+  const byteString = atob(dataURL.split(',')[1]);
+  const ab = new ArrayBuffer(byteString.length);
+  const ia = new Uint8Array(ab);
+  for (let i = 0; i < byteString.length; i++) {
+    ia[i] = byteString.charCodeAt(i);
+  }
+  fileRef2.current = new File([ab], 'screenshot.jpg', { type: 'image/jpeg' });
+  // do something with the file
+}
     
   }
-
     }
   };
 
