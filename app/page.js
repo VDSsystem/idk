@@ -174,6 +174,7 @@ function RootPage() {
     console.log(location.latitude + " " + location.longitude);
     lngRef.current =  location.longitude
     latRef.current = location.latitude
+    let id;
     const data = new FormData();
     if (fileRef) {
       data.append('file', fileRef);
@@ -207,13 +208,14 @@ function RootPage() {
       method: 'POST',
       body: params,
     }).then(r => r.json());
-    const id = response2.id;
+    id = response2.id;
     console.log(id);
   }
   catch(err){
     console.log(err);
   }
-  
+  window.alert('Reported, with id: '+ id);
+  setWarning(false)
 }
 
   // handler to predict in a single image
