@@ -176,29 +176,23 @@ function RootPage() {
   } catch (error) {
     console.error(error);
   }
-  try {
+  try{
     const url = imageURLRef.current;
-    const lng = location.longitude;
-    const lat = location.latitude;
-    const params = {
-      url: url,
-      lat: lat,
-      lng: lng,
-    };
+    //const loc = `https://www.google.com/maps/search/?api=1&query=${lat},${lng}`;
+    const params = new URLSearchParams();
+    params.append('url', url);
+    params.append('lat', location.latitude);
+    params.append('lng', location.longitude);
     const response2 = await fetch("https://vadss.vercel.app/api/output", {
       method: 'POST',
-      body: JSON.stringify(params),
-      headers: {
-        'Content-Type': 'application/json'
-      }
-    });
-    const data2 = await response2.json();
-    const id = data2.id;
+      body: params,
+    }).then(r => r.json());
+    const id = response2.id;
     console.log(id);
-  } catch(err) {
+  }
+  catch(err){
     console.log(err);
   }
-  
 }
   
   
