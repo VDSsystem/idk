@@ -154,22 +154,15 @@ function RootPage() {
       setFileRef(new File([ab], 'image.jpg', { type: 'image/jpeg' }));
     } if (videoRef.current && videoRef.current.srcObject) {
       const video = videoRef.current;
-      const track = video.srcObject.getVideoTracks()[0];
-      const imageCapture = new ImageCapture(track);
-      imageCapture.grabFrame()
-        .then(imageBitmap => {
-          const canvas = document.createElement('canvas');
-          canvas.width = imageBitmap.width;
-          canvas.height = imageBitmap.height;
-          const ctx = canvas.getContext('2d');
-          ctx.drawImage(imageBitmap, 0, 0);
-          canvas.toBlob(blob => {
-            setFileRef2( new File([blob], 'screenshot.jpg', { type: 'image/jpeg' }));
-          }, 'image/jpeg', 0.95);
-        })
-        .catch(error => {
-          console.error('Error grabbing frame from video stream:', error);
-        });
+      const canvas = document.createElement('canvas');
+      canvas.width = video.videoWidth;
+      canvas.height = video.videoHeight;
+      const ctx = canvas.getContext('2d');
+      ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+      canvas.toBlob(blob => {
+        const file = new File([blob], 'screenshot.jpg', { type: 'image/jpeg' });
+        setFileRef2(file);
+      }, 'image/jpeg', 0.95);
     }
      
   }
