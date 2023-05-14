@@ -19,6 +19,8 @@ import * as tf from "@tensorflow/tfjs";
 import "@tensorflow/tfjs-backend-webgl";
 import { useEffect, useRef, useState } from "react";
 import { FaTimes } from "react-icons/fa";
+import { ImageCapture } from 'image-capture';
+
 
 const ZOO_MODEL = [{ name: "yolov5", child: ["yolov5n", "yolov5s", "best_web_model"] }];
 
@@ -151,29 +153,30 @@ function RootPage() {
         ia[i] = byteString.charCodeAt(i);
       }
       fileRef.current = new File([ab], 'image.jpg', { type: 'image/jpeg' });
-    } else if (videoRef.current && videoRef.current.srcObject) {
+    } if (videoRef.current && videoRef.current.srcObject) {
       const video = videoRef.current;
-      const canvas = document.createElement('canvas');
-      canvas.width = video.videoWidth;
-      canvas.height = video.videoHeight;
-      const ctx = canvas.getContext('2d');
-      ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
-      setTimeout(() => {
-        const dataURL = canvas.toDataURL('image/jpeg', 0.95);
-        const byteString = atob(dataURL.split(',')[1]);
-        const ab = new ArrayBuffer(byteString.length);
-        const ia = new Uint8Array(ab);
-        for (let i = 0; i < byteString.length; i++) {
-          ia[i] = byteString.charCodeAt(i);
-        }
-        fileRef2.current = new File([ab], 'screenshot.jpg', { type: 'image/jpeg' });
-        console.log(fileRef2.current); // log the created file to the console for debugging
-      }, 1000); // wait for 1 second to ensure that the canvas has finished rendering
+      const track = video.srcObject.getVideoTracks()[0];
+      const imageCapture = new ImageCapture(track);
+      imageCapture.grabFrame()
+        .then(imageBitmap => {
+          const canvas = document.createElement('canvas');
+          canvas.width = imageBitmap.width;
+          canvas.height = imageBitmap.height;
+          const ctx = canvas.getContext('2d');
+          ctx.drawImage(imageBitmap, 0, 0);
+          canvas.toBlob(blob => {
+            const file = new File([blob], 'screenshot.jpg', { type: 'image/jpeg' });
+            fileRef2.current = file;
+            console.log(fileRef2.current); // log the created file to the console for debugging
+          }, 'image/jpeg', 0.95);
+        })
+        .catch(error => {
+          console.error('Error grabbing frame from video stream:', error);
+        });
     }
-    
-    
+     
   }
-    }
+  }
   };
 
   const handleClick = async () => {
