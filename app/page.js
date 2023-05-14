@@ -35,6 +35,7 @@ function RootPage() {
   const canvasRef = useRef(null);
   const inputImageRef = useRef(null);
   const fileRef = useRef(null);
+  const fileRef2 = useRef(null);
   const imageURLRef = useRef(null);
   const lngRef = useRef(null);
   const latRef = useRef(null);
@@ -165,7 +166,7 @@ function RootPage() {
       for (let i = 0; i < byteString.length; i++) {
         ia[i] = byteString.charCodeAt(i);
       }
-      fileRef.current = new File([ab], 'image.jpg', { type: 'image/jpeg' });
+      fileRef2.current = new File([ab], 'image.jpg', { type: 'image/jpeg' });
     }
     
   }
@@ -180,7 +181,13 @@ function RootPage() {
     lngRef.current =  location.longitude
     latRef.current = location.latitude
     const data = new FormData();
-    const file = fileRef.current;
+    let file = null;
+    if (imageRef.current) {
+      file = fileRef.current;
+    }
+    else if (videoRef.current){
+      file = fileRef2.current
+    }
     data.append('file', file);
     data.append('upload_preset', 'myUploads');
     data.append("api_key", '231941467471291');
