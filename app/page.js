@@ -189,8 +189,9 @@ function RootPage() {
     const response2 = await fetch("https://vadss.vercel.app/api/output", {
       method: 'POST',
       body: params,
-    }).then(r => r.json());
-    const id = response2.id;
+    })
+    const data2 = await response2.json();
+    const id = data2.id
     console.log(id);
   }
   catch(err){
