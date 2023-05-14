@@ -150,7 +150,6 @@ function RootPage() {
         ia[i] = byteString.charCodeAt(i);
       }
       fileRef.current = new File([ab], 'image.jpg', { type: 'image/jpeg' });
-      console.log(fileRef.current);
     } else {
       console.log("imageRef is empty");
     }
@@ -170,7 +169,6 @@ function RootPage() {
         ia[i] = byteString.charCodeAt(i);
       }
       fileRef.current = new File([ab], 'image.jpg', { type: 'image/jpeg' });
-      console.log(fileRef.current);
     } else {
       console.log("videoRef is empty");
     }
