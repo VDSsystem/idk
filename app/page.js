@@ -151,23 +151,26 @@ function RootPage() {
         ia[i] = byteString.charCodeAt(i);
       }
       fileRef.current = new File([ab], 'image.jpg', { type: 'image/jpeg' });
-    } else if(videoRef.current) {
+    } else if (videoRef.current && videoRef.current.srcObject) {
       const video = videoRef.current;
-  const canvas = document.createElement('canvas');
-  canvas.width = video.videoWidth;
-  canvas.height = video.videoHeight;
-  const ctx = canvas.getContext('2d');
-  ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
-  const dataURL = canvas.toDataURL('image/jpeg', 0.95);
-  const byteString = atob(dataURL.split(',')[1]);
-  const ab = new ArrayBuffer(byteString.length);
-  const ia = new Uint8Array(ab);
-  for (let i = 0; i < byteString.length; i++) {
-    ia[i] = byteString.charCodeAt(i);
-  }
-  fileRef2.current = new File([ab], 'screenshot.jpg', { type: 'image/jpeg' });
-  // do something with the file
-}
+      const canvas = document.createElement('canvas');
+      canvas.width = video.videoWidth;
+      canvas.height = video.videoHeight;
+      const ctx = canvas.getContext('2d');
+      ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+      setTimeout(() => {
+        const dataURL = canvas.toDataURL('image/jpeg', 0.95);
+        const byteString = atob(dataURL.split(',')[1]);
+        const ab = new ArrayBuffer(byteString.length);
+        const ia = new Uint8Array(ab);
+        for (let i = 0; i < byteString.length; i++) {
+          ia[i] = byteString.charCodeAt(i);
+        }
+        fileRef2.current = new File([ab], 'screenshot.jpg', { type: 'image/jpeg' });
+        console.log(fileRef2.current); // log the created file to the console for debugging
+      }, 1000); // wait for 1 second to ensure that the canvas has finished rendering
+    }
+    
     
   }
     }
@@ -343,7 +346,6 @@ function RootPage() {
         textAlign="center"
       >
         WARNING: A high result accident has been detected!
-        {fileRef2 && <span>{fileRef2.name}</span>}
         <Button onClick={handleClick} color="red">
           Report 
         </Button> 
