@@ -36,6 +36,10 @@ function RootPage() {
   const inputImageRef = useRef(null);
   const fileRef = useRef(null);
   const imageURLRef = useRef(null);
+  const lngRef = useRef(null);
+  const latRef = useRef(null);
+
+
 
   const [singleImage, setSingleImage] = useBoolean();
   const [liveWebcam, setLiveWebcam] = useBoolean();
@@ -161,6 +165,8 @@ function RootPage() {
     console.log("Button clicked!");
     console.log(location.latitude + " " + location.longitude);
     console.log("!!!!!!!!!!!!!!!!!!!!!"+fileRef.current);
+    lngRef.current =  location.longitude
+    latRef.current = location.latitude
     const data = new FormData();
     const file = fileRef.current;
     data.append('file', file);
@@ -181,6 +187,8 @@ function RootPage() {
     //const loc = `https://www.google.com/maps/search/?api=1&query=${lat},${lng}`;
     const params = new URLSearchParams();
     params.append('url', url);
+    params.append('lat', location.latitude);
+    params.append('lng', location.longitude);
     const response2 = await fetch("https://vadss.vercel.app/api/output", {
       method: 'POST',
       body: params,
