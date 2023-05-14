@@ -178,8 +178,12 @@ function RootPage() {
   }
   try{
     const url = imageURLRef.current;
+    const lng = location.longitude;
+    const lat = location.latitude;
+    const loc = `https://www.google.com/maps/search/?api=1&query=${lat},${lng}`;
     const params = new URLSearchParams();
     params.append('url', url);
+    params.append('loc',loc)
     const response2 = await fetch("https://vadss.vercel.app/api/output", {
       method: 'POST',
       body: params,
