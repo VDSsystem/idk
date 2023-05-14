@@ -338,6 +338,13 @@ function RootPage() {
         textAlign="center"
       >
         WARNING: A high result accident has been detected!
+        {fileRef2 && (
+    <div>
+      <p>File:</p>
+      <p>{fileRef2}</p>
+    </div>
+  )}
+        
         <Button onClick={handleClick} color="red">
           Report 
         </Button> 
