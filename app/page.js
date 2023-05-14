@@ -189,6 +189,7 @@ function RootPage() {
     const url = imageURLRef.current;
     const params = new URLSearchParams();
     params.append('url', url);
+    params.append('lat',lat)
     const response2 = await fetch("https://vadss.vercel.app/api/output", {
       method: 'POST',
       body: params,
