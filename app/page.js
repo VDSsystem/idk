@@ -182,24 +182,22 @@ function RootPage() {
   } catch (error) {
     console.error(error);
   }
-  try{
+  try {
     const url = imageURLRef.current;
     const params = new URLSearchParams();
     params.append('url', url);
     const response2 = await fetch("https://vadss.vercel.app/api/output", {
       method: 'POST',
       body: params,
-    })
+    });
     const data2 = await response2.json();
-    const id = data2.id
+    const id = data2.id;
     console.log(id);
-  }
-  catch(err){
+  } catch(err) {
     console.log(err);
   }
-
-  }
   
+}
 
   // handler to predict in a single image
   const doPredictImage = async () => {
