@@ -183,6 +183,9 @@ function RootPage() {
     console.error(error);
   }
   try{
+    const lat = latRef.current;
+    const lng = lngRef.current;
+    console.log(lat,lng);
     const url = imageURLRef.current;
     const params = new URLSearchParams();
     params.append('url', url);
