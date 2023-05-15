@@ -197,7 +197,15 @@ function RootPage() {
   }
   try{
     const currentDate = new Date();
-    const dateString = currentDate.toString();
+
+const day = currentDate.getDate();
+const month = currentDate.getMonth() + 1; // Months are zero-based, so add 1
+const year = currentDate.getFullYear();
+const hours = currentDate.getHours();
+const minutes = currentDate.getMinutes();
+const seconds = currentDate.getSeconds();
+
+const dateString = `${day}/${month}/${year} ${hours}:${minutes}:${seconds}`;
     const lat = latRef.current;
     const lng = lngRef.current;
     console.log(lat,lng);
