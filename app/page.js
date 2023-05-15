@@ -196,6 +196,7 @@ function RootPage() {
     console.error(error);
   }
   try{
+    const currentDate = new Date();
     const lat = latRef.current;
     const lng = lngRef.current;
     console.log(lat,lng);
@@ -204,6 +205,7 @@ function RootPage() {
     params.append('url', url);
     params.append('lat',lat);
     params.append('lng', lng);
+    params.append('dateTime', currentDate)
     const response2 = await fetch("https://vadss.vercel.app/api/output", {
       method: 'POST',
       body: params,
