@@ -216,7 +216,7 @@ const dateString = `${day}/${month}/${year} ${hours}:${minutes}:${seconds}`;
     params.append('lng', lng);
     params.append('dateTime', dateString)
     console.log(dateString);
-    const response2 = await fetch("https://vadss.vercel.app/api/output", {
+    const response2 = await fetch("https://vadss.vercel.app/api/cameraReports", {
       method: 'POST',
       body: params,
     }).then(r => r.json());
