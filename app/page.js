@@ -378,7 +378,7 @@ const dateString = `${day}/${month}/${year} ${hours}:${minutes}:${seconds}`;
       {/* main layer */}
       <Center as="section" flexDir="column" minH={{ base: "calc(100vh - 60px)", md: "calc(100vh - 100px)" }}>
         <Stack align="center" textAlign="center" spacing={4} mb={10} maxW={640}>
-        <Link href="https://vadss.vercel.app/main.html" isExternal={true} color="red.600" _hover={{ color: "red.800", fontWeight: "bold" }} target="_self">
+        <Link href="https://vadss.vercel.app/view/main.html" isExternal={true} color="red.600" _hover={{ color: "red.800", fontWeight: "bold" }} target="_self">
               HOME
        </Link>
           <Text>
