@@ -220,13 +220,11 @@ const dateString = `${day}/${month}/${year} ${hours}:${minutes}:${seconds}`;
       method: 'POST',
       body: params,
     }).then(r => r.json());
-    id = response2.id;
-    console.log(id);
   }
   catch(err){
     console.log(err);
   }
-  window.alert('Reported, with id: '+ id);
+  window.alert('Reported, thank you');
   setWarning(false)
 }
 
